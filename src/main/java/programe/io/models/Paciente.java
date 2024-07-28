@@ -28,14 +28,17 @@ public class Paciente extends EntidadeGenerica{
     private String nome;
     @Column(length = 11)
     private String cpf;
+    @OneToOne
+    private Convenio convenio;
 
     public Paciente() {
     }
 
-    public Paciente(long id, String nome, String cpf) {
+    public Paciente(long id, String nome, String cpf, Convenio convenio) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.convenio = convenio;
     }
 
     public long getId() {
@@ -62,7 +65,13 @@ public class Paciente extends EntidadeGenerica{
         this.cpf = cpf;
     }
 
+    public Convenio getConvenio() {
+        return convenio;
+    }
 
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
+    }
 
     @Override
     public int hashCode() {

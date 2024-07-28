@@ -24,7 +24,7 @@
                 <p:inputText id="nome" value="#{managerPaciente.paciente.nome}"/>
                 
                 <p:outputLabel for="cpf" value="CPF: "/>
-                <p:inputText id="cpf" value="#{managerPaciente.paciente.cpf}"/>
+                <p:inputMask id="cpf" mask="999.999.999-99" value="#{managerPaciente.paciente.cpf}"/>
                 
             </h:panelGrid>
             <p:commandButton value="Salvar" process="@form" actionListener="#{managerPaciente.salvar()}" styleClass="mr-2" update="@form"/>

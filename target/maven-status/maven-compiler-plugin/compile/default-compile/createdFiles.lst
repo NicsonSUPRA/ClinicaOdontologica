@@ -1,10 +1,13 @@
+programe/io/models/Consulta.class
+programe/io/managers/ManagerPaciente.class
+programe/io/models/Convenio.class
+programe/io/models/Dentista.class
 programe/io/generics/EntidadeGenerica.class
 programe/io/clinicaodontologica/resources/JakartaEE10Resource.class
-programe/io/models/Consulta.class
 programe/io/services/PacienteService.class
-programe/io/managers/ManagerPaciente.class
-programe/io/models/Dentista.class
+programe/io/services/ConvenioService.class
 programe/io/models/Prontuario.class
 programe/io/generics/ServicoGenerico.class
+programe/io/managers/ManagerConvenio.class
 programe/io/clinicaodontologica/JakartaRestConfiguration.class
 programe/io/models/Paciente.class

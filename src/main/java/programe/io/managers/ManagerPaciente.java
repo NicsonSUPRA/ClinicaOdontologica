@@ -33,6 +33,7 @@ public class ManagerPaciente implements Serializable{
     }
     
     public void salvar(){
+        paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
         pacienteService.salvar(paciente);
         this.paciente = new Paciente();
     }
