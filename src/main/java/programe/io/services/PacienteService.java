@@ -19,5 +19,5 @@ public class PacienteService extends ServicoGenerico<Paciente>{
     public PacienteService() {
         super(Paciente.class);
     }
-
+    
 }

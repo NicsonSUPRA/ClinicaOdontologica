@@ -24,15 +24,25 @@ public class ManagerConvenio implements Serializable{
     private ConvenioService convenioService;
     private Convenio convenio;
     private List<Convenio> convenios;
+    private Convenio convenioSelecionado;
     
     @PostConstruct
     private void instanciar(){
         this.convenio = new Convenio();
+        pesquisar();
     }
     
     public void salvar(){
         convenioService.salvar(convenio);
         this.convenio = new Convenio();
+        pesquisar();
+    }
+    
+    public void pesquisar(){
+        convenios = convenioService.findByName(convenio);
+        for(Convenio c : convenios){
+            System.out.println(c.getNome());
+        }
     }
 
     public Convenio getConvenio() {
@@ -50,5 +60,15 @@ public class ManagerConvenio implements Serializable{
     public void setConvenios(List<Convenio> convenios) {
         this.convenios = convenios;
     }
+
+    public Convenio getConvenioSelecionado() {
+        return convenioSelecionado;
+    }
+
+    public void setConvenioSelecionado(Convenio convenioSelecionado) {
+        this.convenioSelecionado = convenioSelecionado;
+    }
+    
+    
       
 }

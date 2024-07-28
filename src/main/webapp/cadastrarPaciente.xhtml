@@ -26,6 +26,11 @@
                 <p:outputLabel for="cpf" value="CPF: "/>
                 <p:inputMask id="cpf" mask="999.999.999-99" value="#{managerPaciente.paciente.cpf}"/>
                 
+                <p:selectOneMenu id="group" value="#{managerConvenio.convenioSelecionado}">
+                    <f:selectItem itemLabel="Selecione Um Convênio" itemValue=""/>
+                    <f:selectItems value="#{managerConvenio.convenios}" var="convenio" itemLabel="#{convenio.nome}" itemValue="#{convenio}"/>
+                </p:selectOneMenu>
+                
             </h:panelGrid>
             <p:commandButton value="Salvar" process="@form" actionListener="#{managerPaciente.salvar()}" styleClass="mr-2" update="@form"/>
         </h:form>

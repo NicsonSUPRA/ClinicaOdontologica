@@ -28,7 +28,7 @@ public class Paciente extends EntidadeGenerica{
     private String nome;
     @Column(length = 11)
     private String cpf;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Convenio convenio;
 
     public Paciente() {
