@@ -10,4 +10,5 @@ programe/io/models/Prontuario.class
 programe/io/generics/ServicoGenerico.class
 programe/io/managers/ManagerConvenio.class
 programe/io/clinicaodontologica/JakartaRestConfiguration.class
+programe/io/utils/ConvenioConversor.class
 programe/io/models/Paciente.class

@@ -28,11 +28,6 @@
                 
                 
             </h:panelGrid>
-            <p:selectOneMenu value="#{managerPaciente.paciente.convenio}" filter="true">
-                <f:selectItem itemLabel="Selecione um Convênio" noSelectionOption="true" />
-                <f:selectItems value="#{managerPaciente.convenios}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
-            </p:selectOneMenu>
-            <p:commandButton value="Salvar" process="@form" actionListener="#{managerPaciente.salvar()}" styleClass="mr-2" update="@form"/>
             <p:commandButton value="teste" actionListener="#{managerPaciente.teste()}"/>
         </h:form>
     </h:body>

@@ -26,13 +26,13 @@
                 <p:outputLabel for="cpf" value="CPF: "/>
                 <p:inputMask id="cpf" mask="999.999.999-99" value="#{managerPaciente.paciente.cpf}"/>
                 
-                <p:selectOneMenu id="group" value="#{managerConvenio.convenioSelecionado}">
-                    <f:selectItem itemLabel="Selecione Um Convênio" itemValue=""/>
-                    <f:selectItems value="#{managerConvenio.convenios}" var="convenio" itemLabel="#{convenio.nome}" itemValue="#{convenio}"/>
-                </p:selectOneMenu>
                 
             </h:panelGrid>
-            <p:commandButton value="Salvar" process="@form" actionListener="#{managerPaciente.salvar()}" styleClass="mr-2" update="@form"/>
+            <p:selectOneMenu value="#{managerPaciente.paciente.convenio}" filter="true" converter="#{convenioConversor}">
+                <f:selectItem itemLabel="Selecione um Convênio" noSelectionOption="true"  />
+                <f:selectItems value="#{managerPaciente.convenios}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+            </p:selectOneMenu>
+            <p:commandButton value="Salvar" actionListener="#{managerPaciente.salvar()}" styleClass="mr-2" update="@form"/>
         </h:form>
     </h:body>
 </html>

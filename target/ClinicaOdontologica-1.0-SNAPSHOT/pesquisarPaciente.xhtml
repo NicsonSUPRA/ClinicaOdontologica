@@ -27,13 +27,24 @@
                 </p:submenu>
             </p:megaMenu>
             <p:panel header="Pesquisar Cliente">
-                <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
+                <h:panelGrid id="grid" cellpadding="7" columns="1" styleClass="mb-0">
 
                     <p:outputLabel for="nome" value="Nome Completo: "/>
                     <p:inputText id="nome" value="#{managerPaciente.paciente.nome}"/>
                     
-                    <p:dataTable>
-                        <!<!-- implementar pesquisar paciente -->
+                    <p:dataTable var="paciente" value="#{managerPaciente.pacientes}">
+                        
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{paciente.nome}"/>
+                        </p:column>
+                        
+                        <p:column headerText="CPF">
+                            <h:outputText value="#{paciente.cpf}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Convênio">
+                            <h:outputText value="#{paciente.convenio.nome}"/>
+                        </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </p:panel>

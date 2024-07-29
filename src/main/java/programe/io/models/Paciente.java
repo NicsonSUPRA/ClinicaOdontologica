@@ -76,8 +76,10 @@ public class Paciente extends EntidadeGenerica{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 89 * hash + Objects.hashCode(this.cpf);
+        hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 23 * hash + Objects.hashCode(this.nome);
+        hash = 23 * hash + Objects.hashCode(this.cpf);
+        hash = 23 * hash + Objects.hashCode(this.convenio);
         return hash;
     }
 
@@ -96,8 +98,16 @@ public class Paciente extends EntidadeGenerica{
         if (this.id != other.id) {
             return false;
         }
-        return Objects.equals(this.cpf, other.cpf);
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
+        return Objects.equals(this.convenio, other.convenio);
     }
+
+    
 
     @Override
     public String toString() {

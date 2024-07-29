@@ -42,8 +42,17 @@ public class ManagerPaciente implements Serializable{
     }
     
     public void salvar(){
+//        paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
+//        pacienteService.salvar(paciente);
+//        System.out.println(paciente);
+//        teste();
+//        this.paciente = new Paciente();
         paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
-        pacienteService.salvar(paciente);
+        if(!paciente.equals(null)){
+            pacienteService.atualizar(paciente);
+        } else {
+            pacienteService.salvar(paciente);
+        }
         this.paciente = new Paciente();
 
     }
@@ -54,6 +63,7 @@ public class ManagerPaciente implements Serializable{
     
     public void teste(){
         System.out.println("----------------------------------------------------------");
+        System.out.println(paciente);
         System.out.println(paciente.getConvenio());
         System.out.println("----------------------------------------------------------");
     }
