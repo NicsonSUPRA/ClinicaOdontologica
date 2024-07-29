@@ -30,16 +30,30 @@
                 </p:submenu>
                 
             </p:megaMenu>
-            <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
-                
-                <p:outputLabel for="nome" value="Nome: "/>
-                <p:inputText id="nome" value="#{managerConvenio.convenio.nome}"/>
-                
-                <p:outputLabel for="codigo" value="Codigo: "/>
-                <p:inputText id="codigo" value="#{managerConvenio.convenio.codigo}"/>
-                
-            </h:panelGrid>
-            <p:commandButton value="Salvar" process="@form" actionListener="#{managerConvenio.salvar()}" styleClass="mr-2" update="@form"/>
+            <p:panel header="Pesquisar Convenio">
+                <h:panelGrid id="grid" cellpadding="7" columns="1" styleClass="mb-0">
+
+                    <p:outputLabel for="nome" value="Nome: "/>
+                    <p:inputText id="nome" value="#{managerConvenio.convenio.nome}"/>
+                    
+                    <p:dataTable id="dataTable" var="convenio" value="#{managerConvenio.convenios}">
+                        
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{convenio.nome}"/>
+                        </p:column>
+                        
+                        <p:column headerText="CPF">
+                            <h:outputText value="#{convenio.codigo}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Visualizar">
+                            <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarConvenio.xhtml?vizualizar=#{convenio.id}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    <p:commandButton value="Pesquisar" actionListener="#{managerConvenio.pesquisar()}" update="@form"/>
+                </h:panelGrid>
+            </p:panel>
         </h:form>
     </h:body>
 </html>

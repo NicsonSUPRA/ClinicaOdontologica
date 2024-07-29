@@ -10,6 +10,7 @@
     <h:body>
         <h:form>
             <p:megaMenu orientation="horizontal" autoDisplay="false">
+                
                 <p:submenu label="Pacientes" icon="pi pi-fw pi-users">
                     <p:column>
                         <p:submenu label="Ações">
@@ -18,13 +19,16 @@
                         </p:submenu>
                     </p:column>
                 </p:submenu>
+                
                 <p:submenu label="Convenios" icon="pi pi-fw pi-heart-fill">
                     <p:column>
                         <p:submenu label="Ações">
                             <p:menuitem value="Cadastrar" outcome="cadastrarConvenio" icon="pi pi-fw pi-plus"/>
+                            <p:menuitem value="Pesquisar" outcome="pesquisarConvenio" icon="pi pi-fw pi-search"/>
                         </p:submenu>
                     </p:column>
                 </p:submenu>
+                
             </p:megaMenu>
             <p:panel header="Pesquisar Cliente">
                 <h:panelGrid id="grid" cellpadding="7" columns="1" styleClass="mb-0">

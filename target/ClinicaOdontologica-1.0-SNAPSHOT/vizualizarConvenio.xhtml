@@ -30,16 +30,14 @@
                 </p:submenu>
                 
             </p:megaMenu>
-            <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
+            <p:panelGrid columns="2">
                 
-                <p:outputLabel for="nome" value="Nome: "/>
-                <p:inputText id="nome" value="#{managerConvenio.convenio.nome}"/>
+                <h:outputLabel value="Nome: #{managerConvenio.convenio.nome}"/>
                 
-                <p:outputLabel for="codigo" value="Codigo: "/>
-                <p:inputText id="codigo" value="#{managerConvenio.convenio.codigo}"/>
+                <h:outputLabel value="Código: #{managerConvenio.convenio.codigo}"/>
                 
-            </h:panelGrid>
-            <p:commandButton value="Salvar" process="@form" actionListener="#{managerConvenio.salvar()}" styleClass="mr-2" update="@form"/>
+                <p:commandButton value="teste"  actionListener="#{managerConvenio.teste()}"/>
+            </p:panelGrid>
         </h:form>
     </h:body>
 </html>
