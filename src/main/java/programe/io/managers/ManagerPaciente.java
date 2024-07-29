@@ -40,13 +40,15 @@ public class ManagerPaciente implements Serializable{
     public void instanciar(){
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String editar = params.get("editar");
+        String vizualizar = params.get("vizualizar");
         
         if(editar != null){
             paciente = pacienteService.findById(Long.parseLong(editar));
+        } else if(vizualizar != null){
+            paciente = pacienteService.findById(Long.parseLong(vizualizar));
         } else{
             this.paciente = new Paciente();
         }
-//        this.paciente = new Paciente();
         pesquisarConvenio();
     }
     
