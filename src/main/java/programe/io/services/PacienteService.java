@@ -5,6 +5,7 @@
 package programe.io.services;
 
 import jakarta.ejb.Stateless;
+import jakarta.persistence.Query;
 import java.util.List;
 import programe.io.generics.ServicoGenerico;
 import programe.io.models.Paciente;
@@ -18,6 +19,21 @@ public class PacienteService extends ServicoGenerico<Paciente>{
     
     public PacienteService() {
         super(Paciente.class);
+    }
+    
+        public List<Paciente> findByName(Paciente paciente){
+        String sql = "SELECT p FROM Paciente p WHERE ";
+        if(paciente.getNome() != null && !paciente.getNome().equals("")){
+            sql += "lower(p.nome) like lower(:nome) AND ";
+        }
+        
+        sql += "p.active = true";
+        Query query = getEntityManager().createQuery(sql);
+        if(paciente.getNome() != null && !paciente.getNome().equals("")){
+            query.setParameter("nome", "%"+paciente.getNome()+"%");
+        }
+        
+        return query.getResultList();
     }
     
 }

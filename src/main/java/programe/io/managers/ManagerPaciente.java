@@ -6,11 +6,12 @@ package programe.io.managers;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import programe.io.models.Convenio;
 import programe.io.models.Paciente;
 import programe.io.services.ConvenioService;
@@ -37,16 +38,19 @@ public class ManagerPaciente implements Serializable{
     
     @PostConstruct
     public void instanciar(){
-        this.paciente = new Paciente();
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String editar = params.get("editar");
+        
+        if(editar != null){
+            paciente = pacienteService.findById(Long.parseLong(editar));
+        } else{
+            this.paciente = new Paciente();
+        }
+//        this.paciente = new Paciente();
         pesquisarConvenio();
     }
     
     public void salvar(){
-//        paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
-//        pacienteService.salvar(paciente);
-//        System.out.println(paciente);
-//        teste();
-//        this.paciente = new Paciente();
         paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
         if(!paciente.equals(null)){
             pacienteService.atualizar(paciente);
@@ -57,16 +61,15 @@ public class ManagerPaciente implements Serializable{
 
     }
     
+    public void pesquisar(){
+        pacientes = pacienteService.findByName(paciente);
+        System.out.println(pacientes);
+    }
+    
     public void pesquisarConvenio(){
         convenios = convenioService.findByName(new Convenio());
     }
     
-    public void teste(){
-        System.out.println("----------------------------------------------------------");
-        System.out.println(paciente);
-        System.out.println(paciente.getConvenio());
-        System.out.println("----------------------------------------------------------");
-    }
 
     public Paciente getPaciente() {
         return paciente;

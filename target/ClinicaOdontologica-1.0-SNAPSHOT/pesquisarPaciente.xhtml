@@ -32,7 +32,7 @@
                     <p:outputLabel for="nome" value="Nome Completo: "/>
                     <p:inputText id="nome" value="#{managerPaciente.paciente.nome}"/>
                     
-                    <p:dataTable var="paciente" value="#{managerPaciente.pacientes}">
+                    <p:dataTable id="dataTable" var="paciente" value="#{managerPaciente.pacientes}">
                         
                         <p:column headerText="Nome">
                             <h:outputText value="#{paciente.nome}"/>
@@ -45,7 +45,16 @@
                         <p:column headerText="Convênio">
                             <h:outputText value="#{paciente.convenio.nome}"/>
                         </p:column>
+                        
+                        <p:column headerText="Visualizar">
+                            <p:commandButton icon="pi pi-search-plus"/>
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:button icon="pi pi-pencil" href="http://localhost:8080/ClinicaOdontologica/cadastrarPaciente.xhtml?editar=#{paciente.id}"/>
+                        </p:column>
                     </p:dataTable>
+                    <p:commandButton value="Pesquisar" actionListener="#{managerPaciente.pesquisar()}" update="@form"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>
