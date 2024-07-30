@@ -4,15 +4,27 @@
  */
 package programe.io.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import java.util.Objects;
+import programe.io.generics.EntidadeGenerica;
 
 /**
  *
  * @author nicsondev
  */
-public class Dentista {
+@Entity
+public class Dentista extends EntidadeGenerica{
+    @Id
+    @SequenceGenerator(name = "seq_dentista", sequenceName = "seq_dentista")
+    @GeneratedValue(generator = "seq_dentista", strategy = GenerationType.SEQUENCE)
     private long id;
     private String nome;
+    @Column(length = 10)
     private String crm;
 
     public Dentista() {

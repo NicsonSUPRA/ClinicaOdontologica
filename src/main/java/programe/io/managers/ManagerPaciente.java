@@ -16,6 +16,7 @@ import programe.io.models.Convenio;
 import programe.io.models.Paciente;
 import programe.io.services.ConvenioService;
 import programe.io.services.PacienteService;
+import programe.io.utils.UtilCpf;
 
 /**
  *
@@ -70,6 +71,10 @@ public class ManagerPaciente implements Serializable{
     
     public void pesquisarConvenio(){
         convenios = convenioService.findByName(new Convenio());
+    }
+    
+    public String cpfFormatado(){
+        return UtilCpf.formatarCpf(paciente.getCpf());
     }
     
 
