@@ -36,8 +36,10 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
         
         if(consulta.getDataConsulta() != null){
             
-            query.setParameter("inicioDia", DateUtil.getCurrentDateAtMidnight());
-            query.setParameter("fimDia", DateUtil.getTomorowDateAtMidnight());
+//            query.setParameter("inicioDia", DateUtil.getCurrentDateAtMidnight());
+//            query.setParameter("fimDia", DateUtil.getTomorowDateAtMidnight());
+            query.setParameter("inicioDia", DateUtil.getDateAtMidnight(consulta.getDataConsulta()));
+            query.setParameter("fimDia", DateUtil.getTomorrowDateAtMidnight(consulta.getDataConsulta()));
         }
 
         System.out.println(query);
