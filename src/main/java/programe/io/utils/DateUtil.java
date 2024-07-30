@@ -20,6 +20,11 @@ public class DateUtil {
         return dataformatada;
     }
     
+    public static String dateToString(Date date) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formato.format(date);
+    }    
+    
     public static Date getCurrentDateAtMidnight() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);

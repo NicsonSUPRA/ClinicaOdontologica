@@ -6,6 +6,7 @@ package programe.io.services;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.Query;
+import java.util.Date;
 import java.util.List;
 import programe.io.generics.ServicoGenerico;
 import programe.io.models.Consulta;
@@ -34,10 +35,12 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
         Query query = getEntityManager().createQuery(sql);
         
         if(consulta.getDataConsulta() != null){
+            
             query.setParameter("inicioDia", DateUtil.getCurrentDateAtMidnight());
             query.setParameter("fimDia", DateUtil.getTomorowDateAtMidnight());
         }
-        System.out.println(sql);
+
+        System.out.println(query);
         return query.getResultList();
     }
     

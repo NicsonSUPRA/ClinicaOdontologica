@@ -16,6 +16,7 @@ import programe.io.models.Paciente;
 import programe.io.services.ConsultaService;
 import programe.io.services.DentistaService;
 import programe.io.services.PacienteService;
+import programe.io.utils.DateUtil;
 
 /**
  *
@@ -49,6 +50,7 @@ public class ManagerConsulta implements Serializable{
         this.dentista = new Dentista();
         pesquisarPaciente();
         pesquisarDentista();
+        pesquisar();
     }
     
     public void salvar(){
@@ -72,6 +74,7 @@ public class ManagerConsulta implements Serializable{
     public void pesquisarDentista(){
         dentistas = dentistaService.findByName(dentista);
     }
+    
 
     public Consulta getConsulta() {
         return consulta;

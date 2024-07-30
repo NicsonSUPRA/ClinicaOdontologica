@@ -16,6 +16,7 @@ import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.Objects;
 import programe.io.generics.EntidadeGenerica;
+import programe.io.utils.DateUtil;
 
 /**
  *
@@ -45,6 +46,10 @@ public class Consulta extends EntidadeGenerica{
         this.paciente = paciente;
         this.dataConsulta = dataConsulta;
         this.duracao = duracao;
+    }
+    
+    public String dataConsultaFormatada(){
+        return DateUtil.dateToString(dataConsulta);
     }
 
     public long getId() {
