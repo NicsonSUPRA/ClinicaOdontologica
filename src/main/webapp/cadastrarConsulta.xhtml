@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Sistema Clinica</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:megaMenu orientation="horizontal" autoDisplay="false">
+                
+                <p:submenu label="Pacientes" icon="pi pi-fw pi-users">
+                    <p:column>
+                        <p:submenu label="Ações">
+                            <p:menuitem value="Cadastrar" outcome="cadastrarPaciente" icon="pi pi-fw pi-user-plus"/>
+                            <p:menuitem value="Pesquisar" outcome="pesquisarPaciente" icon="pi pi-fw pi-search"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                
+                <p:submenu label="Convênios" icon="pi pi-fw pi-heart-fill">
+                    <p:column>
+                        <p:submenu label="Ações">
+                            <p:menuitem value="Cadastrar" outcome="cadastrarConvenio" icon="pi pi-fw pi-plus"/>
+                            <p:menuitem value="Pesquisar" outcome="pesquisarConvenio" icon="pi pi-fw pi-search"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                
+                <p:submenu label="Dentistas" icon="pi pi-fw pi-users">
+                    <p:column>
+                        <p:submenu label="Ações">
+                            <p:menuitem value="Cadastrar" outcome="cadastrarDentista" icon="pi pi-fw pi-user-plus"/>
+                            <p:menuitem value="Pesquisar" outcome="pesquisarDentista" icon="pi pi-fw pi-search"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                
+            </p:megaMenu>
+            <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
+                
+                
+                <p:selectOneMenu value="#{managerConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}">
+                    <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  />
+                    <f:selectItems value="#{managerConsulta.pacientes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
+                </p:selectOneMenu>
+                
+                <p:selectOneMenu value="#{managerConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}">
+                    <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  />
+                    <f:selectItems value="#{managerConsulta.dentistas}" var="d" itemLabel="#{d.nome}" itemValue="#{d}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="time" value="Data da Consulta: "/>
+                <p:datePicker id="time" value="#{managerConsulta.consulta.dataConsulta}" showTime="true"/>
+                
+                <p:outputLabel for="duracao" value="Duração Consulta"/>
+                <p:datePicker id="duracao" value="#{managerConsulta.consulta.duracao}" timeOnly="true" pattern="HH:mm"/>
+                
+            </h:panelGrid>
+            <p:commandButton value="Salvar" actionListener="#{managerConsulta.salvar()}" styleClass="mr-2" update="@form"/>
+            <p:dataTable id="dataTable" var="consulta" value="#{managerConsulta.consultas}" rowKey="#{consulta.id}">
+                
+                <f:facet name="Consultas">
+                    Consultas
+                </f:facet>
+                
+                <p:column headerText="Paciente">
+                    <h:outputText value="#{consulta.paciente.nome}"/>
+                </p:column>
+                
+                <p:column headerText="Dentista">
+                    <h:outputText value="#{consulta.dentista.nome}"/>
+                </p:column>
+                
+                <p:column headerText="Data">
+                    <h:outputText value="#{consulta.dataConsulta}"/>
+                </p:column>
+                
+                <p:column headerText="Duração">
+                    <h:outputText value="#{consulta.duracao}"/>
+                </p:column>
+                
+            </p:dataTable>
+            <p:commandButton value="Pesquisar" actionListener="#{managerConsulta.pesquisar()}" update="@form"/>
+        </h:form>
+    </h:body>
+</html>

@@ -4,29 +4,47 @@
  */
 package programe.io.models;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.Objects;
+import programe.io.generics.EntidadeGenerica;
 
 /**
  *
  * @author nicsondev
  */
-public class Consulta {
+@Entity
+public class Consulta extends EntidadeGenerica{
+    @Id
+    @SequenceGenerator(name = "seq_consulta", sequenceName = "seq_consulta")
+    @GeneratedValue(generator = "seq_consulta", strategy = GenerationType.SEQUENCE)
     private long id;
+    @OneToOne(cascade = CascadeType.ALL)
     private Dentista dentista;
+    @OneToOne(cascade = CascadeType.ALL)
     private Paciente paciente;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataConsulta;
-    private Prontuario prontuario;
+    @Temporal(TemporalType.TIME)
+    private Date duracao;
 
     public Consulta() {
     }
 
-    public Consulta(long id, Dentista dentista, Paciente paciente, Date dataConsulta, Prontuario prontuario) {
+    public Consulta(long id, Dentista dentista, Paciente paciente, Date dataConsulta, Date duracao) {
         this.id = id;
         this.dentista = dentista;
         this.paciente = paciente;
         this.dataConsulta = dataConsulta;
-        this.prontuario = prontuario;
+        this.duracao = duracao;
     }
 
     public long getId() {
@@ -61,21 +79,22 @@ public class Consulta {
         this.dataConsulta = dataConsulta;
     }
 
-    public Prontuario getProntuario() {
-        return prontuario;
+    public Date getDuracao() {
+        return duracao;
     }
 
-    public void setProntuario(Prontuario prontuario) {
-        this.prontuario = prontuario;
+    public void setDuracao(Date duracao) {
+        this.duracao = duracao;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 89 * hash + Objects.hashCode(this.dentista);
-        hash = 89 * hash + Objects.hashCode(this.paciente);
-        hash = 89 * hash + Objects.hashCode(this.dataConsulta);
+        int hash = 7;
+        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.dentista);
+        hash = 97 * hash + Objects.hashCode(this.paciente);
+        hash = 97 * hash + Objects.hashCode(this.dataConsulta);
+        hash = 97 * hash + Objects.hashCode(this.duracao);
         return hash;
     }
 
@@ -100,13 +119,17 @@ public class Consulta {
         if (!Objects.equals(this.paciente, other.paciente)) {
             return false;
         }
-        return Objects.equals(this.dataConsulta, other.dataConsulta);
+        if (!Objects.equals(this.dataConsulta, other.dataConsulta)) {
+            return false;
+        }
+        return Objects.equals(this.duracao, other.duracao);
     }
 
+    
     @Override
     public String toString() {
         return "Consulta{" + "id=" + id + ", dentista=" + dentista.getNome() + ", paciente=" + paciente.getNome() + ", dataConsulta=" + dataConsulta + '}';
     }
-    
+
     
 }
