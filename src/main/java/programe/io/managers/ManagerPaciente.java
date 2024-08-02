@@ -69,6 +69,17 @@ public class ManagerPaciente implements Serializable{
         System.out.println(pacientes);
     }
     
+    public void exluir(){
+        paciente.setActive(false);
+        pacienteService.atualizar(paciente);
+        this.paciente = new Paciente(); 
+    }
+    
+    public boolean hasSelectedPaciente() {
+        return paciente != null;
+    }
+
+    
     public void pesquisarConvenio(){
         convenios = convenioService.findByName(new Convenio());
     }

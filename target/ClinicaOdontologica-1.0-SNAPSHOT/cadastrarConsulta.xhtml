@@ -42,13 +42,13 @@
             <h:panelGrid id="grid" cellpadding="7" columns="2" styleClass="mb-3">
                 
                 
-                <p:selectOneMenu value="#{managerConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}">
-                    <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  />
+                <p:selectOneMenu value="#{managerConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}" required="false">
+                    <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  value="#{p}"/>
                     <f:selectItems value="#{managerConsulta.pacientes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
                 </p:selectOneMenu>
                 
-                <p:selectOneMenu value="#{managerConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}">
-                    <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  />
+                <p:selectOneMenu value="#{managerConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}" required="false">
+                    <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  value="#{d}"/>
                     <f:selectItems value="#{managerConsulta.dentistas}" var="d" itemLabel="#{d.nome}" itemValue="#{d}" />
                 </p:selectOneMenu>
                 
@@ -75,15 +75,23 @@
                 </p:column>
                 
                 <p:column headerText="Data">
-                    <h:outputText value="#{consulta.dataConsulta}"/>
+                    <h:outputText value="#{consulta.dataConsulta}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                    </h:outputText>
                 </p:column>
                 
-                <p:column headerText="Duração">
-                    <h:outputText value="#{consulta.duracao}"/>
+                <p:column headerText="Duração MINUTOS">
+                    <h:outputText value="#{consulta.duracao}">
+                        <f:convertDateTime pattern="mm"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column>
+                    <p:button icon="pi pi-search" href="http://localhost:8080/ClinicaOdontologica/vizualizarConsulta.xhtml?vizualizar=#{consulta.id}"/>
                 </p:column>
                 
             </p:dataTable>
-            <p:commandButton value="Pesquisar" actionListener="#{managerConsulta.pesquisar()}" update="@form"/>
+            <p:commandButton value="Pesquisar" actionListener="#{managerConsulta.pesquisar()}" update="@form" />
         </h:form>
     </h:body>
 </html>

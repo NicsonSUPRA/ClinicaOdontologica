@@ -6,10 +6,12 @@ package programe.io.managers;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import programe.io.models.Consulta;
 import programe.io.models.Dentista;
 import programe.io.models.Paciente;
@@ -45,12 +47,25 @@ public class ManagerConsulta implements Serializable{
     
     @PostConstruct
     public void instanciar(){
-        this.consulta = new Consulta();
-        this.paciente = new Paciente();
-        this.dentista = new Dentista();
-        pesquisarPaciente();
-        pesquisarDentista();
-        pesquisar();
+        
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String vizualizar = params.get("vizualizar");
+        
+        if(vizualizar != null){
+            
+            consulta = consultaService.findById(Long.parseLong(vizualizar));
+            
+
+        } else {
+            
+            this.consulta = new Consulta();
+            this.paciente = new Paciente();
+            this.dentista = new Dentista();            
+            pesquisarPaciente();
+            pesquisarDentista();
+            pesquisar();
+            
+        }
     }
     
     public void salvar(){
