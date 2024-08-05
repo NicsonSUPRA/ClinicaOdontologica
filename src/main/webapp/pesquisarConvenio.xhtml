@@ -59,7 +59,31 @@
                             <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarConvenio.xhtml?vizualizar=#{convenio.id}"/>
                         </p:column>
                         
+                        <p:column headerText="Editar">
+                            <p:button icon="pi pi-pencil" href="http://localhost:8080/ClinicaOdontologica/cadastrarConvenio.xhtml?editar=#{convenio.id}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                     process="@form"
+                                     oncomplete="PF('deleteProductDialog').show()">
+                                <f:setPropertyActionListener value="#{convenio}" target="#{managerConvenio.convenioSelecionado}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+
+                
+                        
                     </p:dataTable>
+                    
+                    <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                        message="Delete the product?" header="Confirm" severity="warn">
+                        <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{managerConvenio.excluir()}"
+                            process="@form"
+                            oncomplete="console.log('oncomplete called');PF('deleteProductDialog').hide()" />
+                        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                            onclick="PF('deleteProductDialog').hide()" />
+                    </p:confirmDialog>
                     <p:commandButton value="Pesquisar" actionListener="#{managerConvenio.pesquisar()}" update="@form"/>
                 </h:panelGrid>
             </p:panel>

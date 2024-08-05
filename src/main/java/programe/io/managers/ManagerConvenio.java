@@ -6,6 +6,7 @@ package programe.io.managers;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import programe.io.models.Convenio;
 import programe.io.services.ConvenioService;
+import programe.io.utils.GrowlUtil;
 
 /**
  *
@@ -25,16 +27,19 @@ public class ManagerConvenio implements Serializable{
     @EJB
     private ConvenioService convenioService;
     private Convenio convenio;
-    private List<Convenio> convenios;
     private Convenio convenioSelecionado;
+    private List<Convenio> convenios;
+    
     
     @PostConstruct
     private void instanciar(){
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String vizualizar = params.get("vizualizar");
+        String editar = params.get("editar");
         if(vizualizar != null){
             convenio = convenioService.findById(Long.parseLong(vizualizar));
-            System.out.println("##############"+convenio);
+        } else if(editar != null){
+            convenio = convenioService.findById(Long.parseLong(editar));
         } else {
             this.convenio = new Convenio();
         }
@@ -42,13 +47,22 @@ public class ManagerConvenio implements Serializable{
     }
     
     public void salvar(){
-        convenioService.salvar(convenio);
+        if(convenio != null){
+            System.out.println("pasou aqui no 1");
+            convenioService.atualizar(convenio);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "convênio cadastrado com sucesso!");
+        } else {
+            System.out.println("passou aqui no 2");
+            convenioService.salvar(convenio); 
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "convênio cadastrado com sucesso!");
+        }
+        
         this.convenio = new Convenio();
         pesquisar();
     }
     
     public void teste(){
-        System.out.println(convenio);
+        System.out.println(convenioSelecionado);
     }
     
     public void pesquisar(){
@@ -56,6 +70,12 @@ public class ManagerConvenio implements Serializable{
         for(Convenio c : convenios){
             System.out.println(c.getNome());
         }
+    }
+    
+    public void excluir(){
+        convenioSelecionado.setActive(false);
+        convenios.remove(this.convenioSelecionado);
+        convenioService.atualizar(convenioSelecionado);
     }
 
     public Convenio getConvenio() {
@@ -81,6 +101,15 @@ public class ManagerConvenio implements Serializable{
     public void setConvenioSelecionado(Convenio convenioSelecionado) {
         this.convenioSelecionado = convenioSelecionado;
     }
+
+    public ConvenioService getConvenioService() {
+        return convenioService;
+    }
+
+    public void setConvenioService(ConvenioService convenioService) {
+        this.convenioService = convenioService;
+    }
+    
     
     
       
