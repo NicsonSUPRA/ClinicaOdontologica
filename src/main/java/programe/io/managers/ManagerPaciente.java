@@ -6,6 +6,7 @@ package programe.io.managers;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -16,6 +17,7 @@ import programe.io.models.Convenio;
 import programe.io.models.Paciente;
 import programe.io.services.ConvenioService;
 import programe.io.services.PacienteService;
+import programe.io.utils.GrowlUtil;
 import programe.io.utils.UtilCpf;
 
 /**
@@ -29,7 +31,8 @@ public class ManagerPaciente implements Serializable{
     @EJB
     private PacienteService pacienteService;
     
-    @EJB ConvenioService convenioService;
+    @EJB 
+    private ConvenioService convenioService;
     
     private Paciente paciente;
     private List<Paciente> pacientes;
@@ -57,8 +60,11 @@ public class ManagerPaciente implements Serializable{
         paciente.setCpf(paciente.getCpf().replace(".", "").replace("-", ""));
         if(!paciente.equals(null)){
             pacienteService.atualizar(paciente);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "Operação realizada com sucesso!");
+
         } else {
             pacienteService.salvar(paciente);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "Operação realizada com sucesso!");
         }
         this.paciente = new Paciente();
 

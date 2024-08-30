@@ -33,8 +33,11 @@ public class DentistaConversor implements Converter<Dentista> {
         if(value != null && !value.trim().isEmpty()){
             try {
                 return dentistaService.findById(Long.parseLong(value));
-            } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Conversão", "ID invalido"));
+//            } catch (NumberFormatException e) {
+//                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Conversão", "ID invalido"));
+//            }
+            } catch(RuntimeException e) {
+                return null;
             }
         } else {
             return null;

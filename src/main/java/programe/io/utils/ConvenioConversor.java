@@ -30,7 +30,7 @@ public class ConvenioConversor implements Converter<Convenio> {
                 long id = Long.parseLong(value);
                 return convenioService.findById(id);
             } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid convenio ID."));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Convênio Inválido", "Selecione o tipo de Convenio para o usuário"));
             }
         } else {
             return null;

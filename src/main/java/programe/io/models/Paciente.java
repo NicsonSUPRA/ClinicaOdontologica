@@ -14,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import java.util.Objects;
 import programe.io.generics.EntidadeGenerica;
+import programe.io.utils.UtilCpf;
 
 /**
  *
@@ -39,6 +40,10 @@ public class Paciente extends EntidadeGenerica{
         this.nome = nome;
         this.cpf = cpf;
         this.convenio = convenio;
+    }
+    
+    public String cpfFormatado(){
+        return UtilCpf.formatarCpf(this.cpf);
     }
 
     public long getId() {

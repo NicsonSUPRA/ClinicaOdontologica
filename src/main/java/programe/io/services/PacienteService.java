@@ -27,10 +27,16 @@ public class PacienteService extends ServicoGenerico<Paciente>{
             sql += "lower(p.nome) like lower(:nome) AND ";
         }
         
+        if(paciente.getCpf() != null && !paciente.getCpf().equals("")){
+            sql += "p.cpf like :cpf AND ";
+        }
+        
         sql += "p.active = true";
         Query query = getEntityManager().createQuery(sql);
         if(paciente.getNome() != null && !paciente.getNome().equals("")){
             query.setParameter("nome", "%"+paciente.getNome()+"%");
+        } else if(paciente.getCpf() != null && !paciente.getCpf().equals("")) {
+            query.setParameter("cpf", paciente.getCpf().replace("-", "").replace(".", ""));
         }
         
         return query.getResultList();

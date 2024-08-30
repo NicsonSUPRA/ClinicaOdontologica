@@ -34,8 +34,11 @@ public class PacienteConversor implements Converter<Paciente>{
             try {
                 long id = Long.parseLong(value);
                 return pacienteService.findById(id);
-            } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid convenio ID."));
+//            } catch (NumberFormatException e) {
+//                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid convenio ID."));
+//            }
+            } catch(RuntimeException e) {
+                return null;
             }
         } else {
             return null;
