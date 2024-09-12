@@ -87,7 +87,7 @@ public class ManagerConsulta implements Serializable{
     }
     
     public void pesquisarDentista(){
-        dentistas = dentistaService.findByName(dentista);
+        dentistas = dentistaService.findByInstance(dentista);
     }
     
 

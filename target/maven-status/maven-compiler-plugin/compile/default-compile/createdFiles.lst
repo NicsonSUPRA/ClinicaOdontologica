@@ -16,6 +16,7 @@ programe/io/generics/EntidadeGenerica.class
 programe/io/clinicaodontologica/resources/JakartaEE10Resource.class
 programe/io/services/PacienteService.class
 programe/io/services/ConvenioService.class
+programe/io/utils/ScheduleConsulta.class
 programe/io/generics/ServicoGenerico.class
 programe/io/managers/ManagerConvenio.class
 programe/io/clinicaodontologica/JakartaRestConfiguration.class

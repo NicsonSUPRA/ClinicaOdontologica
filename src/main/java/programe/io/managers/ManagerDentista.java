@@ -58,7 +58,7 @@ public class ManagerDentista implements Serializable{
     }
     
     public void pesquisar(){
-        dentistas = dentistaService.findByName(dentista);
+        dentistas = dentistaService.findByInstance(dentista);
     }
     
     public String getCrmFormatado(){

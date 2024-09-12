@@ -21,7 +21,7 @@ public class DentistaService extends ServicoGenerico<Dentista> {
         super(Dentista.class);
     }
     
-    public List<Dentista> findByName(Dentista dentista){
+    public List<Dentista> findByInstance(Dentista dentista){
         String sql = "SELECT d FROM Dentista d WHERE ";
         
         if(dentista.getNome() != null && !dentista.getNome().equals("")){
