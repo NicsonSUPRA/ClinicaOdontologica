@@ -6,15 +6,20 @@ package programe.io.utils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import programe.io.models.Consulta;
 import programe.io.models.Dentista;
@@ -44,44 +49,77 @@ public class ScheduleConsulta implements Serializable {
     private Paciente paciente;
     private Dentista dentista;
     
-    private List<Consulta> consultas;
-    private List<Paciente> pacientes;
-    private List<Dentista> dentistas;
+    private List<Consulta> consultas = new ArrayList<>();
+    private List<Paciente> pacientes = new ArrayList<>();
+    private List<Dentista> dentistas = new ArrayList<>();
        
     private ScheduleModel eventModel;
     private DefaultScheduleEvent<Object> event = new DefaultScheduleEvent<>();
     
     @PostConstruct
     public void init(){
+        this.consulta = new Consulta();
         this.paciente = new Paciente();
         this.dentista = new Dentista();
         pesquisarDentista();
         pesquisarPaciente();
+        pesquisarConsulta();
         this.eventModel = new DefaultScheduleModel();
+        for(Consulta c : consultas) {
+            event = DefaultScheduleEvent.builder()
+                .editable(false)
+                .title(Long.toString(c.getId()))
+                .borderColor("green")
+                .startDate(LocalDateTime.ofInstant(c.getDataConsulta().toInstant(), ZoneId.systemDefault()))
+                .endDate(LocalDateTime.ofInstant(c.getDuracao().toInstant(), ZoneId.systemDefault()))
+                .build();
+            eventModel.addEvent(event);
+        }
+        
+        
     }
     
     public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
         event = DefaultScheduleEvent.builder()
                 .editable(false)
                 .title("titulo")
-                .borderColor("orange")
+                .borderColor("green")
                 .startDate(selectEvent.getObject())
                 .endDate(selectEvent.getObject().plusHours(1))
                 .build();
     }
     
+    public void onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
+        event = (DefaultScheduleEvent<Object>) selectEvent.getObject();
+        consulta = consultaService.findById(Long.parseLong(event.getTitle()));
+        paciente = consulta.getPaciente();
+        dentista = consulta.getDentista();
+    }
+    
     public void addEvent() {
-//        System.out.println(event.getId());
-//        eventModel.addEvent(event);
-        System.out.println("passou aquiisiqxbuqwybxuwgvxywgveywvgxywex");
         if (event.getId() == null) {
+            consulta.setDataConsulta(Date.from(event.getStartDate().atZone(ZoneId.systemDefault()).toInstant()));
+            consulta.setDuracao(Date.from(event.getEndDate().atZone(ZoneId.systemDefault()).toInstant()));
             eventModel.addEvent(event);
+            consultaService.atualizar(consulta);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "consulta cadastrada");
+            System.out.println("passou aqui 1");
+            
         }
         else {
+            
             eventModel.updateEvent(event);
+            System.out.println(consulta.getPaciente() + " " + consulta.getDentista());
+            consultaService.atualizar(consulta);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "consulta Atualizada");
+            System.out.println("passou aqui");
+
         }
         
+        
         event = new DefaultScheduleEvent<>();
+        this.paciente = new Paciente();
+        this.dentista = new Dentista();
     }
     public void pesquisarDentista() {
         dentistas = dentistaService.findByInstance(dentista);
@@ -89,6 +127,10 @@ public class ScheduleConsulta implements Serializable {
     
     public void pesquisarPaciente() {
         pacientes = pacienteService.findByName(paciente);
+    }
+    
+    public void pesquisarConsulta() {
+        consultas = consultaService.findByDate(consulta);
     }
 
     public ScheduleModel getEventModel() {

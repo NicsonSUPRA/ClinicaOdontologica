@@ -16,6 +16,7 @@
     </h:head>
     <h:body style="background: aliceblue">
         <h:form>
+            <p:growl id="growl" showDetail="true"/>
             <div class="px-2 mt-1">
                 <p:megaMenu orientation="horizontal" autoDisplay="false" styleClass="bg-info">
 
@@ -59,7 +60,12 @@
                     </p:menu>
 
                     <p:schedule class="m-4" value="#{scheduleConsulta.eventModel}" widgetVar="scheduleConsulta">
-                        <p:ajax event="dateSelect" listener="#{scheduleConsulta.onDateSelect}" update="@form" oncomplete="PF('consultaDialog').show();"/>
+                        <p:ajax event="dateSelect" listener="#{scheduleConsulta.onDateSelect}" update="@form" 
+                                oncomplete="PF('consultaDialog').show();"/>
+                        
+                        <p:ajax event="eventSelect" listener="#{scheduleConsulta.onEventSelect}" 
+                                update="@form" oncomplete="PF('consultaDialog').show();"/>
+
                     </p:schedule>
                     
                     <p:dialog widgetVar="consultaDialog" header="Detalhes da Consulta">
@@ -88,15 +94,12 @@
                         </p:selectOneMenu>
                         
                         <p:commandButton id="adicionarConsulta" value="salvar" action="#{scheduleConsulta.addEvent}" 
-                                         oncomplete="PF('scheduleConsulta').update();PF('consultaDialog').hide();"/>
+                                         oncomplete="PF('scheduleConsulta').update();PF('consultaDialog').hide();" update="@form"/>
                     </p:dialog>
                 </div>
 
             </div>
             
-<!--            <p:panel header="Created By Nicson Costa Antunes" styleClass="footer" style="text-align: center; position: fixed; bottom: 0; width: 100%" class="sticky-bottom">
-                <p:outputLabel value="© Agradeço por verificar o projeto. Um bom dia."/>
-            </p:panel>-->
             
         </h:form>
     </h:body>

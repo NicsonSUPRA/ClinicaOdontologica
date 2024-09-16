@@ -24,7 +24,6 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
     }
     
     public List<Consulta> findByDate(Consulta consulta){
-        System.out.println(consulta.getDataConsulta());
         String sql = "SELECT c FROM Consulta c WHERE ";
         
         if(consulta.getDataConsulta() != null){
@@ -44,6 +43,24 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
 
         System.out.println(query);
         return query.getResultList();
+    }
+    
+    public List<Consulta> findConsultaToSchedule(Consulta consulta){
+        String sql = "SELECT c FROM Consulta c WHERE ";
+        if(consulta.getDataConsulta() != null) {
+            sql += "c.dataConsulta = :inicioDia AND c.duracao = :fimDia AND ";
+        }
+        sql += "c.active = true";
+        Query query = getEntityManager().createQuery(sql);
+        if(consulta.getDataConsulta() != null) {
+            query.setParameter("inicioDia", consulta.getDataConsulta());
+            query.setParameter("fimDia", consulta.getDuracao());   
+        }
+        
+
+        System.out.println(query);
+        return query.getResultList();
+        
     }
     
 }
