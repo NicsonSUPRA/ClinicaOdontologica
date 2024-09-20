@@ -11,6 +11,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import programe.io.models.Convenio;
@@ -28,7 +29,7 @@ public class ManagerConvenio implements Serializable{
     private ConvenioService convenioService;
     private Convenio convenio;
     private Convenio convenioSelecionado;
-    private List<Convenio> convenios;
+    private List<Convenio> convenios = new ArrayList<>();
     
     
     @PostConstruct
@@ -67,9 +68,6 @@ public class ManagerConvenio implements Serializable{
     
     public void pesquisar(){
         convenios = convenioService.findByName(convenio);
-        for(Convenio c : convenios){
-            System.out.println(c.getNome());
-        }
     }
     
     public void excluir(){

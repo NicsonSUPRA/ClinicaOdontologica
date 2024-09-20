@@ -62,11 +62,11 @@
             </div>
             
             <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-                message="Delete the product?" header="Confirm" severity="warn">
-                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{managerPaciente.exluir()}"
+                message="Deseja deletar esse cliente?" header="Confirmar" severity="warn">
+                <p:commandButton value="Sim" icon="pi pi-check" actionListener="#{managerPaciente.exluir()}"
                     process="@form"
                     oncomplete="PF('deleteProductDialog').hide()" />
-                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                     onclick="PF('deleteProductDialog').hide()" />            
             </p:confirmDialog>
         </h:form>
