@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import java.util.Objects;
 import programe.io.generics.EntidadeGenerica;
+import programe.io.utils.UtilCrm;
 
 /**
  *
@@ -34,6 +35,10 @@ public class Dentista extends EntidadeGenerica{
         this.id = id;
         this.nome = nome;
         this.crm = crm;
+    }
+    
+    public String getCrmFormatado() {
+        return UtilCrm.formatCrm(crm);
     }
 
     public long getId() {

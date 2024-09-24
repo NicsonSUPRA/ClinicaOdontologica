@@ -6,6 +6,7 @@ package programe.io.managers;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import programe.io.models.Dentista;
 import programe.io.services.DentistaService;
+import programe.io.utils.GrowlUtil;
 import programe.io.utils.UtilCrm;
 
 /**
@@ -51,8 +53,10 @@ public class ManagerDentista implements Serializable{
         dentista.setCrm(dentista.getCrm().replace("-", "").replace(" ", ""));
         if(dentista != null){
             dentistaService.atualizar(dentista);
+            GrowlUtil.addMessage(FacesMessage.SEVERITY_INFO, "Concluído", "dentista cadastrado com sucesso!");
         } else {
             dentistaService.salvar(dentista);
+            System.out.println("passou no salvar");
         }
        dentista = new Dentista();
     }

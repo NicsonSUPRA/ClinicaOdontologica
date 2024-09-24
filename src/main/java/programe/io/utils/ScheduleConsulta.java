@@ -121,6 +121,10 @@ public class ScheduleConsulta implements Serializable {
         this.paciente = new Paciente();
         this.dentista = new Dentista();
     }
+    
+    public void excludeEvent(){
+        eventModel.deleteEvent(event);
+    }
     public void pesquisarDentista() {
         dentistas = dentistaService.findByInstance(dentista);
     }

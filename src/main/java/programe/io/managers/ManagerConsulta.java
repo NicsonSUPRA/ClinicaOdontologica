@@ -77,6 +77,11 @@ public class ManagerConsulta implements Serializable{
         consulta = new Consulta();
     }
     
+    public void excluir(){
+        consulta.setActive(false);
+        salvar();
+    }
+    
     public void pesquisar(){
         System.out.println(consultas);          
         consultas = consultaService.findByDate(consulta);

@@ -15,7 +15,7 @@ public class UtilCrm {
             throw new IllegalArgumentException("A String deve ter pelo menos 8 caracteres.");
         }
 
-        String estado = crm.substring(0, 2).toUpperCase(); // Extrai os primeiros dois caracteres
+        String estado = crm.substring(3, 5).toUpperCase(); // Extrai os primeiros dois caracteres
         String numero = crm.substring(5); // Extrai os caracteres após os 5 primeiros (ignorando o prefixo 'crmsp')
 
         // Formata a string no formato "CRM-SP 12345"

@@ -6,60 +6,73 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Sistema Clinica</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+        
     </h:head>
-    <h:body>
+    <h:body style="background: aliceblue">
         <h:form>
-            <p:megaMenu orientation="horizontal" autoDisplay="false">
-                
-                <p:submenu label="Pacientes" icon="pi pi-fw pi-users">
-                    <p:column>
-                        <p:submenu label="Ações">
-                            <p:menuitem value="Cadastrar" outcome="cadastrarPaciente" icon="pi pi-fw pi-user-plus"/>
-                            <p:menuitem value="Pesquisar" outcome="pesquisarPaciente" icon="pi pi-fw pi-search"/>
-                        </p:submenu>
-                    </p:column>
-                </p:submenu>
-                
-                <p:submenu label="Convênios" icon="pi pi-fw pi-heart-fill">
-                    <p:column>
-                        <p:submenu label="Ações">
-                            <p:menuitem value="Cadastrar" outcome="cadastrarConvenio" icon="pi pi-fw pi-plus"/>
-                            <p:menuitem value="Pesquisar" outcome="pesquisarConvenio" icon="pi pi-fw pi-search"/>
-                        </p:submenu>
-                    </p:column>
-                </p:submenu>
-                
-                <p:submenu label="Dentistas" icon="pi pi-fw pi-users">
-                    <p:column>
-                        <p:submenu label="Ações">
-                            <p:menuitem value="Cadastrar" outcome="cadastrarDentista" icon="pi pi-fw pi-user-plus"/>
-                            <p:menuitem value="Pesquisar" outcome="pesquisarDentista" icon="pi pi-fw pi-search"/>
-                        </p:submenu>
-                    </p:column>
-                </p:submenu>
-                
-            </p:megaMenu>
-            <p:panel header="Pesquisar Dentista">
-                <h:panelGrid id="grid" cellpadding="7" columns="1" styleClass="mb-0">
+            <div class="px-2 mt-1">
+                <p:megaMenu orientation="horizontal" autoDisplay="false" styleClass="bg-info">
 
-                    <p:outputLabel for="nome" value="Nome Completo: "/>
-                    <p:inputText id="nome" value="#{managerDentista.dentista.nome}"/>
+                    <p:submenu label="Pacientes" icon="pi pi-fw pi-users">
+                        <p:column>
+                            <p:submenu label="Ações">
+                                <p:menuitem value="Cadastrar" outcome="cadastrarPaciente" icon="pi pi-fw pi-user-plus"/>
+                                <p:menuitem value="Pesquisar" outcome="pesquisarPaciente" icon="pi pi-fw pi-search"/>
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                    <p:submenu label="Convênios" icon="pi pi-fw pi-heart-fill">
+                        <p:column>
+                            <p:submenu label="Ações">
+                                <p:menuitem value="Cadastrar" outcome="cadastrarConvenio" icon="pi pi-fw pi-plus"/>
+                                <p:menuitem value="Pesquisar" outcome="pesquisarConvenio" icon="pi pi-fw pi-search"/>
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+                    
+                    <p:submenu label="Dentistas" icon="pi pi-fw pi-users">
+                        <p:column>
+                            <p:submenu label="Ações">
+                                <p:menuitem value="Cadastrar" outcome="cadastrarDentista" icon="pi pi-fw pi-user-plus"/>
+                                <p:menuitem value="Pesquisar" outcome="pesquisarDentista" icon="pi pi-fw pi-search"/>
+                            </p:submenu>
+                        </p:column>
+                    </p:submenu>
+
+                </p:megaMenu>
+            </div>
+            <p:panel header="Pesquisar Dentista" style="margin-left: 10px; margin-right: 10px; text-align: center " >
+                <div class="container m-4 d-flex justify-content-center align-items-center">
+                    <div class="row">
+                        <div class="col-md-6 px-4">
+                            <span class="ui-float-label">
+                                <p:inputText id="nome" value="#{managerDentista.dentista.nome}"/>
+                                <p:outputLabel for="@previous" value="Username"/>
+                            </span>
+                        </div>
+
+
+                    </div>
+                </div>
+                <h:panelGrid id="grid" cellpadding="7" columns="1" styleClass="mb-0">
                     
                     <p:dataTable id="dataTable" var="dentista" value="#{managerDentista.dentistas}">
                         
-                        <p:column headerText="Nome">
+                        <p:column headerText="Nome" style="text-align: center">
                             <h:outputText value="#{dentista.nome}"/>
                         </p:column>
                         
-                        <p:column headerText="CRM">
-                            <h:outputText value="#{dentista.crm}"/>
+                        <p:column headerText="CRM" style="text-align: center">
+                            <h:outputText value="#{dentista.crmFormatado}"/>
                         </p:column>
                         
-                        <p:column headerText="Visualizar">
+                        <p:column headerText="Visualizar" style="text-align: center">
                             <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarDentista.xhtml?vizualizar=#{dentista.id}"/>
                         </p:column>
                         
-                        <p:column headerText="Editar">
+                        <p:column headerText="Editar" style="text-align: center">
                             <p:button icon="pi pi-pencil" href="http://localhost:8080/ClinicaOdontologica/cadastrarDentista.xhtml?editar=#{dentista.id}"/>
                         </p:column>
                     </p:dataTable>

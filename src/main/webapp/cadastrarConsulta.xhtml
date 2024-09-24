@@ -83,18 +83,24 @@
                             
 
                         </div>
-                        <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}" required="false">
-                            <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  value="#{p}"/>
-                            <f:selectItems value="#{scheduleConsulta.pacientes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
-                        </p:selectOneMenu>
+                        <div style="display: flex; flex-direction: row; align-items: center">
+                            <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}" required="false">
+                                <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  value="#{p}"/>
+                                <f:selectItems value="#{scheduleConsulta.pacientes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
+                            </p:selectOneMenu>
 
-                        <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}" required="false">
-                            <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  value="#{d}"/>
-                            <f:selectItems value="#{scheduleConsulta.dentistas}" var="d" itemLabel="#{d.nome}" itemValue="#{d}" />
-                        </p:selectOneMenu>
-                        
-                        <p:commandButton id="adicionarConsulta" value="salvar" action="#{scheduleConsulta.addEvent}" 
-                                         oncomplete="PF('scheduleConsulta').update();PF('consultaDialog').hide();" update="@form"/>
+                            <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}" required="false">
+                                <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  value="#{d}"/>
+                                <f:selectItems value="#{scheduleConsulta.dentistas}" var="d" itemLabel="#{d.nome}" itemValue="#{d}" />
+                            </p:selectOneMenu>
+
+                            <p:commandButton id="adicionarConsulta" value="salvar" action="#{scheduleConsulta.addEvent}" 
+                                             oncomplete="PF('scheduleConsulta').update();PF('consultaDialog').hide();" update="@form"/>
+                        </div>
+                        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center">
+                            <!-- aqui deve ficar o botão de excluir consulta, provavel que não seja possivel mas se for...  -->
+                            <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarConsulta.xhtml?vizualizar=#{scheduleConsulta.consulta.id}"/>
+                        </div>
                     </p:dialog>
                 </div>
 
