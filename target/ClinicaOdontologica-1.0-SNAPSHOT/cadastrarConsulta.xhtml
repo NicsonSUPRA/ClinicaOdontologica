@@ -61,10 +61,10 @@
 
                     <p:schedule class="m-4" value="#{scheduleConsulta.eventModel}" widgetVar="scheduleConsulta">
                         <p:ajax event="dateSelect" listener="#{scheduleConsulta.onDateSelect}" update="@form" 
-                                oncomplete="PF('consultaDialog').show();"/>
+                                oncomplete="PF('#{scheduleConsulta.tipoDialog()}').show();"/>
                         
                         <p:ajax event="eventSelect" listener="#{scheduleConsulta.onEventSelect}" 
-                                update="@form" oncomplete="PF('consultaDialog').show();"/>
+                                update="@form" oncomplete="PF('#{scheduleConsulta.tipoDialog()}').show();"/>
 
                     </p:schedule>
                     
@@ -100,6 +100,40 @@
                         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center">
                             <!-- aqui deve ficar o botão de excluir consulta, provavel que não seja possivel mas se for...  -->
                             <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarConsulta.xhtml?vizualizar=#{scheduleConsulta.consulta.id}"/>
+                        </div>
+                    </p:dialog>
+                    
+                    <p:dialog widgetVar="newConsultaDialog" header="Detalhes da Consulta">
+                        <div class="inDialog" style="display: flex; flex-direction: row; align-items: center">
+                            <div style="display: flex; flex-direction: column">
+                                <p:outputLabel for="from" value="Inicio Da Consulta" styleClass="font-bold"/>
+                                <p:datePicker id="from" value="#{scheduleConsulta.event.startDate}" pattern="dd/MM/yyyy"
+                                          showTime="true" appendTo="@(body)" />
+                            </div>
+                            <div class="inDialog" style="display: flex; flex-direction: column">
+                                <p:outputLabel for="to" value="Fim da Consulta" styleClass="font-bold"/>
+                                <p:datePicker id="to" value="#{scheduleConsulta.event.endDate}" pattern="dd/MM/yyyy"
+                                          showTime="true" appendTo="@(body)"/>
+                            </div>
+                            
+
+                        </div>
+                        <div style="display: flex; flex-direction: row; align-items: center">
+                            <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.paciente}" filter="true" converter="#{pacienteConversor}" required="false">
+                                <f:selectItem itemLabel="Selecione um Paciênte" noSelectionOption="true"  value="#{p}"/>
+                                <f:selectItems value="#{scheduleConsulta.pacientes}" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu class="m-3" value="#{scheduleConsulta.consulta.dentista}" filter="true" converter="#{dentistaConversor}" required="false">
+                                <f:selectItem itemLabel="Selecione um Dentista" noSelectionOption="true"  value="#{d}"/>
+                                <f:selectItems value="#{scheduleConsulta.dentistas}" var="d" itemLabel="#{d.nome}" itemValue="#{d}" />
+                            </p:selectOneMenu>
+
+                            <p:commandButton id="adicionarConsulta" value="salvar" action="#{scheduleConsulta.addEvent}" 
+                                             oncomplete="PF('scheduleConsulta').update();PF('newConsultaDialog').hide();" update="@form"/>
+                        </div>
+                        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center">
+                            <!-- aqui deve ficar o botão de excluir consulta, provavel que não seja possivel mas se for...  -->
                         </div>
                     </p:dialog>
                 </div>

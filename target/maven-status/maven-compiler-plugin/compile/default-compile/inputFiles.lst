@@ -14,6 +14,7 @@
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/utils/GrowlUtil.java
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/models/Prontuario.java
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/models/Consulta.java
+/home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/vo/PacienteVO.java
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/services/DentistaService.java
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/utils/ConvenioConversor.java
 /home/nicsondev/NetBeansProjects/ClinicaOdontologica/src/main/java/programe/io/clinicaodontologica/resources/JakartaEE10Resource.java

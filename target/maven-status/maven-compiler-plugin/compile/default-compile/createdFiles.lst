@@ -10,6 +10,7 @@ programe/io/models/Prontuario.class
 programe/io/managers/ManagerDentista.class
 programe/io/models/Consulta.class
 programe/io/models/Convenio.class
+programe/io/vo/PacienteVO.class
 programe/io/utils/UtilCpf.class
 programe/io/services/DentistaService.class
 programe/io/generics/EntidadeGenerica.class

@@ -80,6 +80,8 @@ public class ScheduleConsulta implements Serializable {
     }
     
     public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
+        System.out.println("passou no onDateSelect");
+        System.out.println("valor do eventId: " + event.getId());
         event = DefaultScheduleEvent.builder()
                 .editable(false)
                 .title("titulo")
@@ -90,6 +92,8 @@ public class ScheduleConsulta implements Serializable {
     }
     
     public void onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
+        System.out.println("passou no onEventSelect");
+        System.out.println("valor do eventId: " + event.getId());
         event = (DefaultScheduleEvent<Object>) selectEvent.getObject();
         consulta = consultaService.findById(Long.parseLong(event.getTitle()));
         paciente = consulta.getPaciente();
@@ -125,6 +129,17 @@ public class ScheduleConsulta implements Serializable {
     public void excludeEvent(){
         eventModel.deleteEvent(event);
     }
+    
+    public String tipoDialog() {
+        if(event.getId() == null) {
+            System.out.println("newConsultaDialog");
+            return "newConsultaDialog";
+        } else {
+            System.out.println("ConsultaDialog");
+            return "consultaDialog";
+        }
+    }
+    
     public void pesquisarDentista() {
         dentistas = dentistaService.findByInstance(dentista);
     }
