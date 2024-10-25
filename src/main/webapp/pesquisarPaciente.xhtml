@@ -61,10 +61,23 @@
                             <p:outputLabel for="@previous" value="CPF"/>
                         </span>
                     </div>
+                    
 
+                </div>
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <p:outputLabel value="Convênio" for="convenioAutocomplete"/>
+                        <p:autoComplete id="convenioAutocomplete" var="convenio" itemValue="#{convenio}"
+                                        itemLabel="#{convenio.nome}"
+                                        completeMethod="#{managerConvenio.convenioAutocomplete}" scrollHeight="200"
+                                        converter="convenioConverter" required="false">
+                            
+                        </p:autoComplete>
+                    </div>
                 </div>
             </div>
 
+            <p:commandButton value="Pesquisar" styleClass="m-4" actionListener="#{managerPaciente.pesquisar()}" update="@form"/>
 
             <p:dataTable id="dataTable" class="mb-4" var="paciente" value="#{managerPaciente.pacientes}">
 
@@ -81,14 +94,14 @@
                 </p:column>
 
                 <p:column headerText="Visualizar" style="text-align: center">
-                    <p:button icon="pi pi-search-plus" href="http://localhost:8080/ClinicaOdontologica/vizualizarPaciente.xhtml?vizualizar=#{paciente.id}"/>
+<!--                    no href não precisa colocar a utl todo,, apenas o nome do arquivo e o parametro-->
+                    <p:button icon="pi pi-search-plus" href="vizualizarPaciente.xhtml?vizualizar=#{paciente.id}"/>
                 </p:column>
 
                 <p:column headerText="Editar" style="text-align: center">
                     <p:button icon="pi pi-pencil" href="http://localhost:8080/ClinicaOdontologica/cadastrarPaciente.xhtml?editar=#{paciente.id}"/>
                 </p:column>
             </p:dataTable>
-            <p:commandButton value="Pesquisar" actionListener="#{managerPaciente.pesquisar()}" update="@form"/>
         </p:panel>
             
             <p:panel header="Created By Nicson Costa Antunes" styleClass="footer" style="text-align: center; position: fixed; bottom: 0; width: 100%" class="sticky-bottom">

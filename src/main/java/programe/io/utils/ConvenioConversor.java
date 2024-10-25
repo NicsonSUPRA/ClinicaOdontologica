@@ -9,15 +9,14 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.component.UIComponent;
-import java.util.List;
 import programe.io.models.Convenio;
-import programe.io.generics.ServicoGenerico;
-import java.util.Map;
 import programe.io.services.ConvenioService;
 
 @Named
 @ApplicationScoped
-@FacesConverter(value = "convenioConverter")
+//pra utilizar a injecao de dependencia, nesse caso o convenioService foi preciso
+//adicionar o managed = true, se não, não irá executar o findByLong(id)
+@FacesConverter(value = "convenioConverter", managed = true)
 public class ConvenioConversor implements Converter<Convenio> {
 
     @Inject
@@ -28,12 +27,13 @@ public class ConvenioConversor implements Converter<Convenio> {
         if (value != null && !value.trim().isEmpty()) {
             try {
                 long id = Long.parseLong(value);
+                System.out.println(id);
                 return convenioService.findById(id);
             } catch (NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Convênio Inválido", "Selecione o tipo de Convenio para o usuário"));
             }
         } else {
-            return null;
+            return new Convenio();
         }
     }
 
@@ -42,7 +42,7 @@ public class ConvenioConversor implements Converter<Convenio> {
         if (value != null) {
             return String.valueOf(value.getId());
         } else {
-            return null;
+            return "";
         }
     }
 }

@@ -30,6 +30,7 @@ public class ManagerConvenio implements Serializable{
     private Convenio convenio;
     private Convenio convenioSelecionado;
     private List<Convenio> convenios = new ArrayList<>();
+    List<Convenio> conveniosAutocomplete = new ArrayList<>();
     
     
     @PostConstruct
@@ -60,6 +61,12 @@ public class ManagerConvenio implements Serializable{
         
         this.convenio = new Convenio();
         pesquisar();
+    }
+    
+    public List<Convenio> convenioAutocomplete(String nome){
+        conveniosAutocomplete = convenioService.findByNameAutocomplete(nome);
+        return conveniosAutocomplete;
+        
     }
     
     public void teste(){

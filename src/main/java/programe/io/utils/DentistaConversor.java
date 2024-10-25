@@ -47,7 +47,7 @@ public class DentistaConversor implements Converter<Dentista> {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Dentista value) {
         if(value != null){
-            return String.valueOf(value.getId());
+            return String.valueOf(value.getNome());
         } else {
             return null;
         }

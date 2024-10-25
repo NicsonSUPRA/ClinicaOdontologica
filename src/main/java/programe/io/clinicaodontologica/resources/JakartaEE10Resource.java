@@ -8,6 +8,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,33 +33,29 @@ public class JakartaEE10Resource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("base64")
-    public Response testeBase654(PacienteVO paciente){
-        base64(paciente);
+    public Response testeBase654(PacienteVO paciente) throws IOException{
+        adicionaArquivo(paciente);
         return Response.status(Response.Status.CREATED).entity(paciente).build();
     }
     
-    public void base64(PacienteVO paciente) {
-        File file = new File("/opt/Cerurb/uploads/imagens/" + paciente.getNome() + "/");
-        if (!file.exists()) {
-            file.mkdirs();  // Usa mkdirs() para criar todos os diretórios necessários
-        }
+    public void adicionaArquivo(PacienteVO paciente) throws IOException{
+        System.out.println("entrou aqui");
+        System.out.println(paciente.getNome());
+        //criando diretorio caso não exista
+        File file = new File("/opt/Cerurb/uploads/imagens" + paciente.getNome() + "/");
+        file.mkdirs();
         
-        String path = file.getAbsolutePath() + "/" + paciente.getCpf() + ".jpeg";
+        byte[]  arquivo = Base64.getDecoder().decode(paciente.getBase64());
         
+        String path = "/opt/Cerurb/uploads/imagens/" + paciente.getNome() + ".pdf";
+        adicionarArquivoD(arquivo, path);
         
-        byte[] encoded = Base64.getEncoder().encode(paciente.getBase64().getBytes());
-//        System.out.println(new String(encoded));   // Outputs "SGVsbG8="
-
-        byte[] decoded = Base64.getDecoder().decode(encoded);
-//        System.out.println(new String(decoded));   // Outputs "Hello"
-
-        
-        try (FileOutputStream fos = new FileOutputStream(path)) {
-            //fos.write(decoded);
-            fos.write(decoded);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
+    
+    public void adicionarArquivoD(byte[] base64, String path) throws FileNotFoundException, IOException {
+        FileOutputStream fos = new FileOutputStream(path);
+        fos.write(base64);
+//        fos.close();
     }
 
 }

@@ -36,4 +36,23 @@ public class ConvenioService extends ServicoGenerico<Convenio>{
         
         return query.getResultList();
     }
+    
+    public List<Convenio> findByNameAutocomplete(String nome){
+        String sql = "select c from Convenio c where ";
+        
+        if(!nome.isBlank() && !nome.equals("")){
+            sql += "c.nome like :nome and ";
+        }
+        
+        sql += "c.active = true";
+        
+        Query query = getEntityManager().createQuery(sql);
+        
+        if(!nome.isBlank() && !nome.equals("")){
+            query.setParameter("nome", "%" + nome + "%");
+        }
+        
+        return query.getResultList();
+        
+    }
 }
