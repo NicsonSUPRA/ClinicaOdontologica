@@ -39,7 +39,21 @@ public class PacienteService extends ServicoGenerico<Paciente>{
             query.setParameter("cpf", paciente.getCpf().replace("-", "").replace(".", ""));
         }
         
-        return query.getResultList();
+        
+        //utilizar esse metodo para ver o tempo de execução de um metodo
+        
+        long inicio = System.nanoTime();
+        
+        // Executa a consulta
+        List<Paciente> resultado = query.getResultList();
+        
+        long fim = System.nanoTime(); // Renomeado para 'fim'
+        
+        // Cálculo do tempo de execução em milissegundos
+        long tempoExecucao = fim - inicio;
+        System.out.println("Tempo de execução da consulta: " + (tempoExecucao / 1_000_000) + " ms");
+        
+        return resultado; // Retorna o resultado da consulta
     }
     
 }
