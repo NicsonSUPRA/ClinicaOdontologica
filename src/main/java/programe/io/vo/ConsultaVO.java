@@ -16,12 +16,12 @@ public class ConsultaVO implements Serializable {
     private String paciente;
     private String pacienteConvenio;
     private String dentista;
-    private Date dataConsulta;
+    private int dataConsulta;
 
     public ConsultaVO() {
     }
 
-    public ConsultaVO(long id, String paciente, String pacienteConvenio, String dentista, Date dataConsulta) {
+    public ConsultaVO(long id, String paciente, String pacienteConvenio, String dentista, int dataConsulta) {
         this.id = id;
         this.paciente = paciente;
         this.pacienteConvenio = pacienteConvenio;
@@ -63,13 +63,14 @@ public class ConsultaVO implements Serializable {
         this.id = id;
     }
 
-    public Date getDataConsulta() {
+    public int getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(Date dataConsulta) {
+    public void setDataConsulta(int dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
+
 
 
     

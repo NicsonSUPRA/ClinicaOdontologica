@@ -65,11 +65,10 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
     }
     
     public List<ConsultaVO> findConsultasParaPesquisa() {
-        String sql = "SELECT new programe.io.vo.ConsultaVO(c.id, p.nome, con.nome, d.nome, c.duracao) "
+        String sql = "SELECT new programe.io.vo.ConsultaVO(c.id, p.nome, c.paciente.convenio.nome , d.nome, cast(extract(day from c.dataConsulta) as integer)) "
                 + "from Consulta c "
                 + "JOIN Paciente p "
-                + "JOIN Convenio con "
-                + "JOIN Dentista d "
+                + "JOIN Dentista d"
                 + "where c.active = true ";
         Query query = getEntityManager().createQuery(sql);
         
