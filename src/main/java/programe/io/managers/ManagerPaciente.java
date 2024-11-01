@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import programe.io.models.Convenio;
 import programe.io.models.Paciente;
+import programe.io.services.ConsultaService;
 import programe.io.services.ConvenioService;
 import programe.io.services.PacienteService;
 import programe.io.utils.GrowlUtil;
@@ -33,6 +34,9 @@ public class ManagerPaciente implements Serializable{
     
     @EJB 
     private ConvenioService convenioService;
+    
+    @EJB
+    private ConsultaService consultaService;
     
     private Paciente paciente;
     private List<Paciente> pacientes;
@@ -54,6 +58,8 @@ public class ManagerPaciente implements Serializable{
             this.paciente = new Paciente();
         }
         pesquisarConvenio();
+        System.out.println("findConsultaToPesquisa logo abaixo");
+        System.out.println(consultaService.findConsultasParaPesquisa());
     }
     
     public void salvar(){

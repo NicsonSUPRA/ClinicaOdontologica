@@ -11,6 +11,7 @@ import java.util.List;
 import programe.io.generics.ServicoGenerico;
 import programe.io.models.Consulta;
 import programe.io.utils.DateUtil;
+import programe.io.vo.ConsultaVO;
 
 /**
  *
@@ -61,6 +62,18 @@ public class ConsultaService extends ServicoGenerico<Consulta>{
         System.out.println(query);
         return query.getResultList();
         
+    }
+    
+    public List<ConsultaVO> findConsultasParaPesquisa() {
+        String sql = "SELECT new programe.io.vo.ConsultaVO(c.id, p.nome, con.nome, d.nome, c.duracao) "
+                + "from Consulta c "
+                + "JOIN Paciente p "
+                + "JOIN Convenio con "
+                + "JOIN Dentista d "
+                + "where c.active = true ";
+        Query query = getEntityManager().createQuery(sql);
+        
+        return query.getResultList();
     }
     
 }

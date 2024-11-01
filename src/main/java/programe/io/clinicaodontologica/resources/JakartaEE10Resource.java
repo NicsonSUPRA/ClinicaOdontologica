@@ -1,5 +1,6 @@
 package programe.io.clinicaodontologica.resources;
 
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -13,7 +14,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import programe.io.services.ConsultaService;
+import programe.io.vo.ConsultaVO;
 import programe.io.vo.PacienteVO;
 /**
  *
@@ -21,6 +26,11 @@ import programe.io.vo.PacienteVO;
  */
 @Path("/teste")
 public class JakartaEE10Resource {
+    
+    @EJB
+    private ConsultaService ConsultaService;
+    
+    List<ConsultaVO> consultas;
     
     @GET
     public Response ping(){
@@ -56,6 +66,14 @@ public class JakartaEE10Resource {
         FileOutputStream fos = new FileOutputStream(path);
         fos.write(base64);
 //        fos.close();
+    }
+    
+    @GET
+    @Path("consultasVO")
+    public Response findConsultasVO(){
+        consultas = new ArrayList<>();
+        consultas = ConsultaService.findConsultasParaPesquisa();
+        return Response.status(Response.Status.OK).entity(consultas).build();
     }
 
 }
